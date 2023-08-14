@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block title %}
+  Прошу передать Ваш текст в форму
+{% endblock %}
+
+{% block content %}
+<div class='card col-6'>
+    <div class='card-header'>
+        Оценка Вашего комментария к фильму
+    </div>
+    <div class='card-body'>
+  <form>
+    
+    {% bootstrap_form form %}
+   
+    {% bootstrap_button button_type="submit" content="Отправить" %}
+  </form>
+    </div>
+</div>
+
+  {% if form.is_valid %}
+    <h2>Ваш текст принят "{{ request.GET.text|truncatewords:10 }}"</h2>
+    <h2>Предсказание = {% if prediction == 1 %}положительный отзыв{% else %}отрицательный отзыв{% endif %}</h2>
+    <h2>Предсказание = {{ from_0_to_10 }} из 10</h2>
+    
+  {% endif %}
+
+
+{% endblock %}
